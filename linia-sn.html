@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Linia napowietrzna SN przy działkach 761/9–12 i 761/5–8 w Chwaszczynie: mapa orientacyjnych ograniczeń, porównanie zakupu oraz procedura i koszty skablowania.">
+  <meta name="description" content="Działki 761/7, 8, 11, 12 oraz 10 lub 19: mapa ograniczeń linii SN, koszty przyłączenia prądu i procedura skablowania w Chwaszczynie.">
   <title>Linia SN — działki w Chwaszczynie</title>
   <link rel="stylesheet" href="linia-sn.css">
   <script type="module" src="linia-sn.mjs"></script>
@@ -12,30 +12,30 @@
   <header><div class="wrap">
     <a href="./">← Dojazdy</a> · <a href="dzialka-761-19.html">Warunki budowy 761/19</a>
     <h1>Linia nad działkami.<br>Co ogranicza, co da się zmienić?</h1>
-    <p>Chwaszczyno, obręb 0004 · zakup: <strong>761/7, 761/8, 761/11, 761/12 oraz 761/9 albo 761/10</strong>. Wstępna analiza na podstawie granic GUGiK i przekazanego zrzutu mapy.</p>
+    <p>Chwaszczyno, obręb 0004 · zakup: <strong>761/7, 761/8, 761/11, 761/12 oraz 761/19 albo 761/10</strong>. Działka 761/9 nie jest już rozważana do zakupu; pozostaje na mapie wyłącznie jako sąsiedztwo.</p>
     <p class="small" style="color:var(--light)">Stan opracowania: 14.09.2026. SN i napowietrzny charakter przyjęto z informacji kupującego; dokładne napięcie, właściciel i parametry linii wymagają potwierdzenia.</p>
   </div></header>
   <main class="wrap">
-    <nav aria-label="Spis treści"><a href="#mapa">Mapa i działki</a><a href="#ograniczenia">Ograniczenia</a><a href="#kabel">Skablowanie</a><a href="#koszty">Koszty</a><a href="#zakup">Przed zakupem</a><a href="#metoda">Metoda i źródła</a></nav>
+    <nav aria-label="Spis treści"><a href="#mapa">Mapa i działki</a><a href="#prad">Prąd do każdej działki</a><a href="#ograniczenia">Ograniczenia</a><a href="#kabel">Skablowanie</a><a href="#koszty">Koszty skablowania</a><a href="#zakup">Przed zakupem</a><a href="#metoda">Metoda i źródła</a></nav>
     <section id="mapa">
       <p class="kicker">01 / Wstępna ocena przestrzenna</p>
       <h2>Pas do sprawdzenia — nie urzędowa linia zakazu.</h2>
       <div class="notice"><p><strong>Nie można dziś rzetelnie wyznaczyć obszaru prawnie wykluczonego z budowy.</strong> Brakuje warunków operatora, geodezyjnego przebiegu skrajnych przewodów, ich wysokości i dokumentów planistycznych dla tych działek. Kreskowanie poniżej oznacza modelowy pas ograniczeń do uzgodnienia — nie stwierdzony zakaz. Teren poza nim także nie ma potwierdzonej możliwości zabudowy.</p></div>
       <div class="map-layout">
         <figure>
-          <svg id="parcel-map" viewBox="0 0 650 730" role="img" aria-labelledby="map-title map-desc">
+          <svg id="parcel-map" viewBox="0 0 650 855" role="img" aria-labelledby="map-title map-desc">
             <title id="map-title">Działki i orientacyjny pas przy linii SN</title>
             <desc id="map-desc">Granice z ULDK. Przybliżona oś ze zdjęcia przecina 761/9, 761/10, drogę 761/4, 761/6 i 761/5. Pas może sięgać narożnika 761/11. To analiza orientacyjna, a nie mapa zakazu zabudowy.</desc>
             <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="var(--soft)" fill-opacity=".6"/><path d="M-2 2L2-2M0 8L8 0M6 10L10 6" stroke="var(--red)" stroke-width="1"/></pattern></defs>
             <g id="shapes"></g><g id="labels"></g>
-            <path d="M30 685h100m-100-5v10m100-10v10" stroke="var(--ink)" fill="none"/>
-            <text x="30" y="712" class="scale">20 m · skala granic</text><text x="570" y="35" class="scale">N ↑</text>
+            <path d="M30 810h100m-100-5v10m100-10v10" stroke="var(--ink)" fill="none"/>
+            <text x="30" y="837" class="scale">20 m · skala granic</text><text x="570" y="35" class="scale">N ↑</text>
           </svg>
           <figcaption>Linia przerywana: przybliżona oś ze zrzutu, nie pomiar. Kreskowanie: wybrany pas od tej osi. Granice i powierzchnie obliczeniowe: GUGiK ULDK, 14.09.2026; nie zastępują wypisu EGiB.</figcaption>
         </figure>
         <div>
           <label for="alternative">Piąta działka do zakupu</label>
-          <select id="alternative"><option value="10">761/10 + 7, 8, 11, 12</option><option value="9">761/9 + 7, 8, 11, 12</option></select>
+          <select id="alternative"><option value="19">761/19 + 7, 8, 11, 12</option><option value="10">761/10 + 7, 8, 11, 12</option></select>
           <label for="width">Wariant szerokości: <output id="width-value" for="width">7 m od osi · pas 14 m</output></label>
           <input id="width" type="range" min="3" max="12" value="7" step=".5">
           <p class="small">Domyślnie ±7 m: przykład praktyki ENERGA, nie warunki dla tej linii. Pozostałe szerokości to wyłącznie analiza wrażliwości; nie są normami odległości domu. Nie mylić z odległościami BHP od skrajnego przewodu.</p>
@@ -44,7 +44,7 @@
           <table><caption>Powierzchnia w modelowym pasie</caption><thead><tr><th scope="col">Działka</th><th scope="col">Przecięcie z pasem</th></tr></thead><tbody>
             <tr data-parcel="7"><th scope="row">761/7</th><td class="affected">—</td></tr>
             <tr data-parcel="8"><th scope="row">761/8</th><td class="affected">—</td></tr>
-            <tr data-parcel="9"><th scope="row">761/9</th><td class="affected">—</td></tr>
+            <tr data-parcel="19"><th scope="row">761/19</th><td class="affected">—</td></tr>
             <tr data-parcel="10"><th scope="row">761/10</th><td class="affected">—</td></tr>
             <tr data-parcel="11"><th scope="row">761/11</th><td class="affected">—</td></tr>
             <tr data-parcel="12"><th scope="row">761/12</th><td class="affected">—</td></tr>
@@ -55,11 +55,42 @@
       </div>
       <h3>Co wynika dla rozważanego zakupu?</h3>
       <ul class="reading">
-        <li><strong>761/9 i 761/10:</strong> obie są przecięte wskazaną linią. Nie należy traktować żadnej jako wolnej od kolizji. Decydujące będzie miejsce na konkretny dom, nie tylko liczba metrów kwadratowych pasa.</li>
+        <li><strong>761/10:</strong> jest przecięta wskazaną linią. <strong>761/19:</strong> oś przechodzi po stronie sąsiedniej 761/9, lecz pas może zahaczać o narożnik 19. To istotnie inna sytuacja niż zakup 9; dokładny zasięg wymaga potwierdzenia.</li>
         <li><strong>761/11:</strong> oś na zdjęciu przechodzi przy narożniku od strony drogi 761/4. Nawet jeśli nie przecina wnętrza parceli, ograniczenia mogą wejść na działkę i utrudnić prowadzenie robót.</li>
         <li><strong>761/7, 761/8 i 761/12:</strong> leżą dalej od wskazanej osi. Przy ±7 m model zahacza o bardzo mały fragment 761/7; to wynik szczególnie wrażliwy na błąd odczytu osi. Wynik „0 w modelu” dla 8 i 12 nie jest potwierdzeniem braku innych sieci, słupów, praw operatora ani ograniczeń planistycznych.</li>
-        <li><strong>Wariant z 761/10</strong> daje sąsiadujący zestaw 10–11–12 po jednej stronie drogi. Przy wariancie z 761/9 działka 10 rozdziela 9 i 11. To różnica układu własności, a nie dowód, że wariant z 10 lepiej nadaje się pod dom.</li>
+        <li><strong>Wariant z 761/10</strong> daje sąsiadujący zestaw 10–11–12 po jednej stronie drogi. <strong>761/19</strong> leży poza tym ciągiem, przy innym froncie. Różnice dostępu i trasy zasilania trzeba ocenić osobno; mniejsze przecięcie z pasem nie potwierdza prawa do budowy.</li>
       </ul>
+    </section>
+    <section id="prad" class="reading">
+      <p class="kicker">Prąd do działek / taryfa 2026</p>
+      <h2>Ile kosztuje doprowadzenie prądu?</h2>
+      <div class="notice"><p><strong>Standardowe przyłączenie domu to inna usługa niż przeniesienie linii SN.</strong> Nie zakładamy, że trzeba samodzielnie kupić i ułożyć całą sieć od głównej drogi. Nie potwierdzono jednak punktu zasilania, dostępnej mocy ani możliwości przyłączenia tych działek na warunkach taryfowych.</p></div>
+      <p>Przykład: osobne, docelowe przyłącze kablowe nN dla każdego domu, moc <strong>15 kW</strong>, długość każdego przyłącza do <strong>200 m</strong>. To założenia do kalkulacji, nie pomiar trasy ani dobór mocy przez projektanta.</p>
+      <table>
+        <caption>Opłata operatora — scenariusz 15 kW, do 200 m, VAT 23%</caption>
+        <thead><tr><th scope="col">Działka</th><th scope="col">Brutto</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">761/7</th><td>≈ 1 095 zł</td><td>Stały zestaw</td></tr>
+          <tr><th scope="row">761/8</th><td>≈ 1 095 zł</td><td>Stały zestaw</td></tr>
+          <tr><th scope="row">761/11</th><td>≈ 1 095 zł</td><td>Stały zestaw</td></tr>
+          <tr><th scope="row">761/12</th><td>≈ 1 095 zł</td><td>Stały zestaw</td></tr>
+          <tr><th scope="row">761/19</th><td>≈ 1 095 zł</td><td>Wariant piątej działki</td></tr>
+          <tr><th scope="row">761/10</th><td>≈ 1 095 zł</td><td>Alternatywa dla 19</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Pięć osobnych przyłączy po 15 kW: około 5 476 zł brutto.</strong> Przy 20 kW: około 1 460 zł na dom / 7 301 zł za pięć; przy 25 kW: około 1 825 zł / 9 127 zł. Suma liczona przed zaokrągleniem. Nie obejmuje instalacji odbiorczych.</p>
+      <p>Stawka kablowa wynosi <strong>59,36 zł netto/kW</strong>. Powyżej 200 m dochodzi <strong>43,73 zł netto za każdy dodatkowy metr</strong> (około 53,79 zł brutto/m). Przykład 250 m przy 15 kW: około 3 785 zł brutto. Mowa o długości przyłącza określonej przez operatora, nie sumie wszystkich wykopów ani odległości domu od asfaltu.</p>
+      <p class="source"><a href="https://cdn-netpr.pl/file/mediakit/2933024/8/20251217_taryfa_2026.pdf">ENERGA-OPERATOR, taryfa 2026, pkt 5.5–5.6, s. 32–33</a>. Kwoty są kalkulacją według taryfy 2026, nie ofertą ani gwarancją ceny w roku wykonania.</p>
+      <h3>Dlaczego nie podajemy innej ceny dla każdej odległości od drogi?</h3>
+      <p>W zwykłym przyłączeniu taryfowym opłata do 200 m zależy od mocy, a nie od każdego metra kabla. Operator projektuje przyłącze i ewentualną rozbudowę sieci w zakresie warunków. Nie należy automatycznie doliczać do opłaty taryfowej prywatnego kosztu całej trasy od drogi.</p>
+      <p>Nie mamy jeszcze potwierdzonej sieci nN w miejscu wskazanym jako „główna droga”. Istnienie linii SN nie oznacza możliwości bezpośredniego zasilenia domu z tych przewodów. Potrzebne są warunki dla każdego obiektu; punkt przyłączenia może być inny niż najbliższa widoczna kreska na mapie. Nie przypisujemy więc działkom fikcyjnych długości kabli.</p>
+      <h3>Co dochodzi po Waszej stronie?</h3>
+      <p>Instalacja od miejsca rozgraniczenia własności — zwykle złącza przy granicy — do domu: kabel zasilający, wykop, osłony, zakończenia, uziemienie i pomiary według projektu. <strong>Nie jest objęta powyższą kwotą.</strong> Nie mamy lokalnej oferty ani położenia domów i skrzynek, więc pełny koszt dla każdej działki pozostaje do wyceny. Cennik samego układania kabla bez materiału i wykopu nie jest ceną gotowej instalacji.</p>
+      <p class="source"><a href="https://energa-operator.pl/przylaczenie-do-sieci/odbiorcy-3">ENERGA — podział prac między operatora i odbiorcę</a>. Harmonogram i granicę własności określą warunki i umowa.</p>
+      <h3>Jak uzyskać wiążącą odpowiedź?</h3>
+      <p>Przekazać operatorowi wspólną mapę planowanej zabudowy i zapytać o osobne przyłącza dla 7, 8, 11, 12 oraz wariantowo 19/10, z mocą dobraną do domów. Ustalić, czy skrzynki będą przy działkach, kto uzyska prawa do drogi 761/4 i innych gruntów oraz czy potrzebna jest rozbudowa sieci lub stacji.</p>
+      <p>Przy braku warunków technicznych lub ekonomicznych możliwa jest odmowa — nie wolno traktować niskiej opłaty taryfowej jako obietnicy realizacji. Pięć działek nie oznacza też automatycznie pięciu przyłączy, jeśli planujecie inną liczbę obiektów lub wspólne zasilanie.</p>
+      <p class="source"><a href="https://energa-operator.pl/przylaczenie-do-sieci/odbiorcy-1">Wniosek o warunki</a> · <a href="https://energa-operator.pl/przylaczenie-do-sieci/odbiorcy-2">Umowa i możliwość odmowy</a>. Uwaga: opisowa strona umowy zawiera stare ceny 2023; do obliczeń użyto aktualnego PDF 2026.</p>
     </section>
     <section id="ograniczenia" class="reading">
       <p class="kicker">02 / Trzy różne rodzaje ograniczeń</p><h2>Pas techniczny, budynek i plac budowy to nie to samo.</h2>
@@ -111,15 +142,15 @@
       <ol>
         <li><strong>Od sprzedającego:</strong> KW wszystkich kupowanych działek i drogi, dokumenty praw operatora, WZ/MPZP dla każdej parceli oraz posiadane uzgodnienia dotyczące linii.</li>
         <li><strong>Od operatora:</strong> potwierdzenie właściciela, napięcia, identyfikacji odcinka i słupów; wymagany pas i warunki lokalizacji planowanych domów oraz możliwość skablowania.</li>
-        <li><strong>Od projektanta:</strong> dwa warianty zagospodarowania — bez przebudowy i po przebudowie — dla zestawu z 9 i z 10. Uwzględnić również organizację placu budowy.</li>
+        <li><strong>Od projektanta:</strong> dwa warianty zagospodarowania — bez przebudowy i po przebudowie — dla zestawu z 19 i z 10. Uwzględnić również organizację placu budowy.</li>
         <li><strong>Do negocjacji:</strong> cena uwzględniająca kolizję, kto prowadzi sprawę i ponosi koszty. Z notariuszem/prawnikiem rozważyć warunki umowy przedwstępnej zabezpieczające możliwość rezygnacji, jeśli zgoda lub koszt okażą się nieakceptowalne.</li>
       </ol>
-      <p><strong>Wniosek:</strong> nie wybierałbym 9 zamiast 10 ani odwrotnie wyłącznie na podstawie czerwonej kreski. Obie są obciążone przestrzennie wskazaną linią, a 11 wymaga osobnej uwagi. Największą wartość przed zakupem ma pisemna odpowiedź operatora na mapę z konkretnymi domami.</p>
+      <p><strong>Wniosek:</strong> 19 ma w modelu znacznie mniejsze przecięcie z pasem niż 10, ale nadal wymaga sprawdzenia narożnika i osobnego zasilania; 11 również wymaga uwagi. Największą wartość przed zakupem ma pisemna odpowiedź operatora na mapę z konkretnymi domami.</p>
       <p class="small">Ustalenia MPZP/WZ dla 761/19 z poprzedniej podstrony nie zostały przeniesione na te działki.</p>
     </section>
     <section id="metoda" class="reading">
       <p class="kicker">06 / Źródła i dokładność</p><h2>Jak powstała mapa?</h2>
-      <p>Granice 761/4–12 pobrano 14.09.2026 z <a href="https://uldk.gugik.gov.pl/">ULDK GUGiK</a>, zapytaniem GetParcelById dla identyfikatorów 220508_5.0004.761/[numer]. Obliczenia są w metrach w EPSG:2180. <a href="linia-sn.mjs">Dane i jawny algorytm obliczeń</a> są dostępne do kontroli.</p>
+      <p>Granice 761/4–12 oraz 761/19 pobrano 14.09.2026 z <a href="https://uldk.gugik.gov.pl/">ULDK GUGiK</a>, zapytaniem GetParcelById dla identyfikatorów 220508_5.0004.761/[numer]. Obliczenia są w metrach w EPSG:2180. <a href="linia-sn.mjs">Dane i jawny algorytm obliczeń</a> są dostępne do kontroli.</p>
       <p>Oś to prosta przybliżona na podstawie dwóch punktów odczytanych względem granic na zrzucie kupującego: około (463789,585; 728918,345) i (463799,342; 728868,894). Zapis współrzędnych nie oznacza centymetrowej dokładności. Nie znamy błędu odczytu ani przesunięcia kreski względem faktycznych przewodów. Model nie uwzględnia słupów, zwisu, wychyleń, rozgałęzień ani niepokazanych sieci.</p>
       <p>Powierzchnie to geometryczne przecięcie działek z pasem wokół przybliżonej osi. Pas nie uwzględnia odległości od granic działek, linii zabudowy, MPZP/WZ ani innych ograniczeń. <strong>Mapa służy do przygotowania pytań i porównania wariantów, nie do projektu budowlanego ani pracy przy czynnej sieci.</strong></p>
       <p class="small">Źródła prawne i proceduralne podano bezpośrednio przy odpowiednich twierdzeniach. Analiza nie zastępuje warunków operatora, opinii projektanta ani badania stanu prawnego nieruchomości.</p>

@@ -8,6 +8,7 @@ export const parcels = {
   10: [[784.506,883.427],[799.342,868.894],[824.352,894.446],[809.516,908.979]],
   11: [[799.342,868.894],[814.178,854.361],[839.188,879.913],[824.352,894.446]],
   12: [[814.178,854.361],[829.596,839.270],[833.812,839.830],[853.472,865.937],[839.188,879.913]],
+  19: [[794.661,923.532],[809.516,908.979],[833.533,933.525],[818.687,948.069]],
 };
 
 // EPSG:2180 minus [463000, 728000]; axis inferred from screenshot, not surveyed.
@@ -42,7 +43,7 @@ if(typeof document!=='undefined') {
   const map=document.getElementById('parcel-map');
   const shapes=document.getElementById('shapes');
   const labels=document.getElementById('labels');
-  const project=([x,y]) => [(x-731)*5,(935-y)*5];
+  const project=([x,y]) => [(x-731)*5,(960-y)*5];
   const points=poly=>poly.map(p=>project(p).join(',')).join(' ');
   function element(tag,attrs,parent) {
     const node=document.createElementNS(ns,tag);
@@ -68,7 +69,7 @@ if(typeof document!=='undefined') {
       label.textContent=`761/${id}`;
     }
     const at=y=>[axis[0][0]+(y-axis[0][1])*delta[0]/delta[1],y];
-    element('polyline',{points:points([at(934),at(795)]),class:'axis'},shapes);
+    element('polyline',{points:points([at(959),at(795)]),class:'axis'},shapes);
     document.getElementById('width-value').textContent=`${width} m od osi · pas ${width*2} m`;
     document.getElementById('summary').textContent=`Wariant z 761/${alternative}: około ${Math.round(total/10)*10} m² pięciu wybranych działek w modelowym pasie. To nie powierzchnia prawnie wyłączona z zabudowy.`;
     document.querySelectorAll('[data-parcel]').forEach(row=> {

@@ -39,3 +39,9 @@ test('screening includes 9, 10 and corner of 11; 8 and 12 outside default strip'
   for(const id of [9,10,11]) assert.ok(area(corridor(parcels[id],7))>0);
   for(const id of [8,12]) assert.equal(area(corridor(parcels[id],7)),0);
 });
+
+test('parcel 19 is about 714 square metres and only its corner touches default strip',()=> {
+  assert.ok(Math.abs(area(parcels[19])-714)<2);
+  assert.ok(area(corridor(parcels[19],7))<10);
+  assert.ok(area(corridor(parcels[19],7))<area(corridor(parcels[10],7)));
+});

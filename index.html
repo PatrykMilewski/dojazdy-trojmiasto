@@ -209,7 +209,7 @@
       <div class="controls destination-controls" aria-label="Sterowanie tabelą">
         <div><label class="origin-control" for="originSelect">Punkt startowy<select id="originSelect"><option value="marzen" selected>ul. Marzeń, Gdańsk-Jasień</option><option value="oceaniczna">Oceaniczna, Chwaszczyno</option></select></label></div>
         <div><label for="search">Szukaj celu lub adresu</label><input id="search" type="search" placeholder="np. szkoła, Osowa, teatr" autocomplete="off"></div>
-        <div><label for="drivingSnapshot">Auto: zestaw danych</label><select id="drivingSnapshot"><option value="baseline">Poniedziałek 14.09 · plan</option></select></div>
+        <div><label for="drivingSnapshot">Auto: zestaw danych</label><select id="drivingSnapshot"><option value="baseline">Poniedziałek 14.09 · live + pozostałe szacunki</option></select></div>
         <div id="timeControl"><label>Godzina wyjazdu</label><div class="time-buttons" role="group" aria-label="Godzina wyjazdu w poniedziałek 14 września"><button type="button" data-time="0" aria-pressed="false">07:30</button><button type="button" data-time="1" aria-pressed="true">12:00</button><button type="button" data-time="2" aria-pressed="false">16:30</button></div></div>
         <div><label for="sort">Sortowanie</label><select id="sort"><option value="original">Oryginalna kolejność</option><option value="car">Auto — krócej najpierw</option><option value="bike">Rower — krócej najpierw</option></select></div>
         <div id="compareControl"><label for="compareToggle">Widok tabeli</label><button id="compareToggle" class="compare-toggle" type="button" aria-pressed="true">Porównaj godziny</button></div>
@@ -776,6 +776,26 @@
         const origin = originForRow(row);
         return origin ? liveDrivingSnapshots[snapshotKey]?.records[`${origin}:${row[0]}`] : undefined;
       };
+      const baselineTimes = ['07:30', '12:00', '16:30'];
+      /** @param {number} index */
+      const replacementSnapshot = (index) => Object.entries(liveDrivingSnapshots).find(([, snapshot]) => {
+        const scheduled = `2026-09-14T${baselineTimes[index]}:00+02:00`;
+        const records = Object.values(snapshot.records);
+        return snapshot.scheduledAt === scheduled && records.length > 0 && records.every((record) => Math.abs(Date.parse(record.observedAt) - Date.parse(scheduled)) <= 15 * 60 * 1000);
+      });
+      /** @param {DestinationRow} row @param {number} index */
+      const replacementRecord = (row, index) => {
+        const snapshot = replacementSnapshot(index);
+        return snapshot ? liveRecordFor(snapshot[0], row) : undefined;
+      };
+      /** @param {DestinationRow} row @param {number} index */
+      const carSortValue = (row, index) => replacementRecord(row, index)?.minutes ?? upperValue(row[4][index]);
+      baselineTimes.forEach((time, index) => {
+        if (replacementSnapshot(index)) {
+          const heading = document.querySelector(`[data-col="car${index}"]`);
+          if (heading) heading.textContent = `auto live · pon. 14.09 · ${time}`;
+        }
+      });
       /** @param {string|null} value */
       const upperValue = (value) => {
         const parsed = value === null ? Number.NaN : Number.parseInt(String(value).split('–').pop() || '', 10);
@@ -829,7 +849,7 @@
       const render = () => {
         const query = search.value.trim().toLocaleLowerCase('pl-PL');
         let visible = activeRows().filter((row) => (selectedCategory === 'Wszystko' || row[3] === selectedCategory) && (!query || `${row[1]} ${row[2]} ${row[3]} ${row[7]}`.toLocaleLowerCase('pl-PL').includes(query)));
-        if (sort.value === 'car') visible = [...visible].sort((a, b) => selectedDrivingSnapshot === 'baseline' ? upperValue(a[4][selectedTime]) - upperValue(b[4][selectedTime]) : (liveRecordFor(selectedDrivingSnapshot, a)?.minutes ?? 999) - (liveRecordFor(selectedDrivingSnapshot, b)?.minutes ?? 999));
+        if (sort.value === 'car') visible = [...visible].sort((a, b) => selectedDrivingSnapshot === 'baseline' ? carSortValue(a, selectedTime) - carSortValue(b, selectedTime) : (liveRecordFor(selectedDrivingSnapshot, a)?.minutes ?? 999) - (liveRecordFor(selectedDrivingSnapshot, b)?.minutes ?? 999));
         if (sort.value === 'bike') visible = [...visible].sort((a, b) => upperValue(a[5]) - upperValue(b[5]));
         const liveSnapshot = selectedDrivingSnapshot !== 'baseline';
         destinationTable.classList.toggle('live-snapshot', liveSnapshot);
@@ -844,6 +864,12 @@
             const local = note.includes('Lokalnie: rower bez PKM');
             return `<td data-col="${column}" class="number ${className}"><span class="muted">${local ? 'bez potrzeby PKM' : 'brak pomiaru'}</span></td>`;
           };
+          /** @param {number} index */
+          const carCell = (index) => {
+            const record = replacementRecord(row, index);
+            if (!record) return cell(cars[index], selectedTime === index ? 'selected-col' : '', `car${index}`);
+            return `<td data-col="car${index}" class="number ${selectedTime === index ? 'selected-col' : ''}">${record.minutes} min<small>Live · ${escapeHtml(formatObservedAt(record.observedAt, { withDate: true }))}</small></td>`;
+          };
           const liveCell = () => {
             if (cars[0] === 'nie dotyczy') return '<td class="number live-column selected-col"><span class="muted">nie dotyczy</span></td>';
             const record = liveRecordFor(selectedDrivingSnapshot, row);
@@ -855,7 +881,7 @@
             return `<td class="number live-column selected-col">${result}<small>Odczyt: ${escapeHtml(formatObservedAt(record.observedAt, { withDate: true }))}</small>${route}</td>`;
           };
           const mapLink = address === 'niezidentyfikowane' ? '' : `<a class="map-link" href="${mapUrl(name, address)}" target="_blank" rel="noopener">Otwórz trasę ↗</a>`;
-          return `<tr><td>${nr}</td><td class="place"><strong>${name}</strong><small>${address}</small><span class="tag">${category}</span>${note ? `<small>${note}</small>` : ''}${mapLink}${railDetails(nr, address)}</td>${cell(cars[0], selectedTime === 0 ? 'selected-col' : '', 'car0')}${cell(cars[1], selectedTime === 1 ? 'selected-col' : '', 'car1')}${cell(cars[2], selectedTime === 2 ? 'selected-col' : '', 'car2')}${liveCell()}${cell(bike)}${transportCell(transit[0], selectedTime === 0 ? 'selected-col' : '', 'transit0')}${transportCell(transit[1], selectedTime === 1 ? 'selected-col' : '', 'transit1')}${transportCell(transit[2], selectedTime === 2 ? 'selected-col' : '', 'transit2')}</tr>`;
+          return `<tr><td>${nr}</td><td class="place"><strong>${name}</strong><small>${address}</small><span class="tag">${category}</span>${note ? `<small>${note}</small>` : ''}${mapLink}${railDetails(nr, address)}</td>${carCell(0)}${carCell(1)}${carCell(2)}${liveCell()}${cell(bike)}${transportCell(transit[0], selectedTime === 0 ? 'selected-col' : '', 'transit0')}${transportCell(transit[1], selectedTime === 1 ? 'selected-col' : '', 'transit1')}${transportCell(transit[2], selectedTime === 2 ? 'selected-col' : '', 'transit2')}</tr>`;
         }).join('');
         noResults.style.display = visible.length ? 'none' : 'block';
         const countLabel = visible.length === 1 ? 'cel' : visible.length >= 5 ? 'celów' : 'cele';
@@ -872,7 +898,7 @@
         journeyText.textContent = marzen ? 'To prosty diagram relacji, nie mapa geograficzna. Najpierw lokalnie: Jasień i Karczemki. Dalej: Gdańsk, Gdynia i cele nad morzem.' : 'To prosty diagram relacji, nie mapa geograficzna. Najpierw lokalnie: Osowa i Chwaszczyno. Dalej: Gdańsk, Gdynia i cele kulturalne nad morzem.';
         diagramOrigin.textContent = marzen ? 'Marzeń' : 'Oceaniczna';
         diagramLocal.textContent = marzen ? 'Jasień' : 'Osowa';
-        resultsIntro.textContent = 'Wyróżniona kolumna pokazuje wybraną godzinę. Rower + kolej: plan PKM/SKM, bufor i dojście. Brakujące warianty są oznaczone w tabeli.';
+        resultsIntro.textContent = 'Wyróżniona kolumna pokazuje wybraną godzinę. Odczyty live zastępują szacunki auta dla tej samej pory; rzeczywista godzina jest przy wyniku. Rower + kolej: plan PKM/SKM.';
         const pending = activeRows().filter((row) => row[4].includes('brak pomiaru') || row[5] === 'brak pomiaru').length;
         measurementSummary.textContent = pending ? `${pending} celów: brak pomiaru auta / roweru` : 'uzupełniono wszystkie przewidziane pomiary auta / roweru';
         railLegend.textContent = '≈ min · stała gotowość';
@@ -907,6 +933,9 @@
         option.textContent = `Auto live · ${snapshot.label}`;
         averageMetric.append(option);
       });
+      baselineTimes.forEach((_, index) => {
+        if (replacementSnapshot(index)) averageMetric.querySelector(`option[value="car${index}"]`)?.remove();
+      });
       drivingSnapshot.value = 'monday1200';
       selectedDrivingSnapshot = drivingSnapshot.value;
       averageMetric.value = 'live:monday1200';
@@ -924,6 +953,10 @@
           if (row[4][0] === 'nie dotyczy') return null;
           const record = liveRecordFor(metric.slice(5), row);
           return record && Number.isFinite(record.minutes) && record.minutes >= 0 ? record.minutes : null;
+        }
+        if (metric.startsWith('car')) {
+          const record = replacementRecord(row, Number(metric.slice(-1)));
+          if (record) return record.minutes;
         }
         return midpointMinutes(metric === 'bike' ? row[5] : metric.startsWith('car') ? row[4][Number(metric.slice(-1))] : row[6][Number(metric.slice(-1))]);
       };

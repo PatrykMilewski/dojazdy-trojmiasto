@@ -225,7 +225,7 @@
 
     <section class="card averages" aria-labelledby="averages-title">
       <p class="section-kicker">Marzeń × Oceaniczna</p><h2 id="averages-title">Średnie czasy według kategorii</h2>
-      <p>Każdy uwzględniony cel ma taką samą wagę. Mandu, Tłusta Kaczka oraz Hula Pilates (otwarcie po analizowanym dniu) nie wchodzą do średnich. W kulturze: dwa najbliższe czasowo teatry i jedna plaża na adres, spośród zbadanych celów; kina pozostają w zestawie. Rozwiń „Pokaż miejsca”, aby zobaczyć aktualny wybór. Z przedziału 20–40 min liczymy środek, czyli 30 min. To średnia z szacunków tras, nie pomiar typowego dnia ani prognoza czasu spędzanego w podróży. Brak danych i „bez potrzeby PKM” nie oznaczają zera.</p>
+      <p>Każdy uwzględniony cel ma taką samą wagę. Mandu, Tłusta Kaczka oraz Hula Pilates (otwarcie po analizowanym dniu) nie wchodzą do średnich. W kulturze: jedno najbliższe czasowo kino, dwa teatry i jedna plaża na adres, spośród celów z dostępnym pomiarem. Rozwiń „Pokaż miejsca”, aby zobaczyć aktualny wybór. Z przedziału 20–40 min liczymy środek, czyli 30 min. To średnia z szacunków tras, nie pomiar typowego dnia ani prognoza czasu spędzanego w podróży. Brak danych i „bez potrzeby PKM” nie oznaczają zera.</p>
       <div class="controls">
         <div><label for="averageScope">Zestaw celów</label><select id="averageScope"><option value="paired">Porównanie parami — edukacja i kultura lokalnie</option><option value="all">Wszystkie dostępne cele — także lokalne</option></select></div>
         <div><label for="averageMetric">Środek transportu i godzina</label><select id="averageMetric"><option value="car0">Auto · pon. 14.09 · 07:30</option><option value="car1">Auto · pon. 14.09 · 12:00</option><option value="car2">Auto · pon. 14.09 · 16:30</option><option value="bike">Rower bezpośrednio</option><option value="transit0">Rower + transport · pon. 14.09 · 07:30</option><option value="transit1">Rower + transport · pon. 14.09 · 12:00</option><option value="transit2">Rower + transport · pon. 14.09 · 16:30</option></select></div>
@@ -346,9 +346,9 @@
         ["3","Pazy Zuzy","Hallera 61, Gdańsk","Zdrowie i uroda",["22–45","20–40","18–40"],"26",["≈77","≈75","≈69"],"adres użytkownika; biznes niezweryfikowany; kolej: zweryfikowany wariant przez Gdańsk Jasień",false],
         ["4a","Garnizon POP","Hemara 11/U7, Gdańsk","Codzienność",["22–40","18–35","20–35"],"19",["≈72","≈70","≈64"],"wspólny, nazwany cel; kolej: zweryfikowany wariant przez Gdańsk Jasień",false],
         ["4b","Latto","Białoszewskiego 12, Gdańsk","Jedzenie",["20–35","16–30","20–35"],"19",["≈69","≈67","≈61"],"wspólny, nazwany cel; kolej: zweryfikowany wariant przez Gdańsk Jasień",false],
-        ["5a","CINEMA1, Galeria Morena","Schuberta 102A, Gdańsk","Kultura",["14–30","12–22","12–22"],"20",[null,null,null],"najbliższy zweryfikowany działający kandydat kina spośród zbadanych, nie gwarancja absolutnej najbliższości; Lokalnie: rower bez PKM",false],
+        ["5a","CINEMA1, Galeria Morena","Schuberta 102A, Gdańsk","Kultura",["14–30","12–22","12–22"],"20",[null,null,null],"lokalne kino porównywane z Helios Forum; wybór do średniej według dostępnego czasu przejazdu; Lokalnie: rower bez PKM",false],
         ["5c","Kino Żak","Grunwaldzka 197, Gdańsk","Kultura",["20–40","16–30","18–35"],"23",["≈69","≈67","≈61"],"wspólny, nazwany cel; kolej: zweryfikowany wariant przez Gdańsk Jasień",false],
-        ["5b","Helios Riviera","Górskiego 2, Gdynia","Kultura",["22–40","24–45","26–50"],"76",["≈98","≈95","≈90"],"wspólny, nazwany cel; kolej: zweryfikowany wariant przez Gdańsk Jasień i Gdynię Wzgórze",false],
+        ["5d", "Helios Forum Gdańsk", "Targ Sienny 7, Gdańsk", "Kultura", ["brak pomiaru", "brak pomiaru", "12–24"], "31", [null, null, null], "Kino lokalne zamiast Riviery. Dodatkowy odczyt Google Maps 14.09 około 13:30: auto 12 min, 9,3 km przez DW501; rower 31 min, 9,8 km. Nie jest to odczyt o 12:00. Auto 16:30: prognoza 12–24 min. Brak historycznych odczytów 07:30, 09:27, 12:00 i niedzielnych oraz pomiaru komunikacją.", false],
         ["6","Bar Leon","Stągiewna 5/1, Gdańsk","Jedzenie",["20–40","16–30","16–30"],"35",["≈96","≈86","≈88"],"wspólny, nazwany cel; kolej: zweryfikowany wariant przez Gdańsk Jasień",false],
         ["7","BRUT","Toruńska 25, Gdańsk","Jedzenie",["18–40","14–30","14–28"],"33",["≈90","≈92","≈82"],"wspólny, nazwany cel; kolej: zweryfikowany wariant przez Gdańsk Jasień",false],
         ["8","Węzeł Cieplny","Chłopska 16A, Gdańsk","Jedzenie",["22–40","20–35","22–40"],"34",["≈93","≈90","≈85"],"wspólny, nazwany cel; kolej: zweryfikowany wariant przez Gdańsk Jasień",false],
@@ -982,7 +982,7 @@
       const meanFormat = (value) => value.toLocaleString('pl-PL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
       const averageTheatreCount = 2;
       /** @param {DestinationRow} row */
-      const cultureKind = (row) => row[0].startsWith('11') ? 'theatre' : row[0] === '26' || row[0].startsWith('27') ? 'beach' : 'other';
+      const cultureKind = (row) => row[0].startsWith('5') ? 'cinema' : row[0].startsWith('11') ? 'theatre' : row[0] === '26' || row[0].startsWith('27') ? 'beach' : 'other';
       /** @param {DestinationRow[]} rows @param {string} kind @param {string} metric @param {number} limit */
       const nearestCulture = (rows, kind, metric, limit) => rows.filter((row) => row[3] === 'Kultura' && cultureKind(row) === kind && averageValue(row, metric) !== null).sort((a, b) => Number(averageValue(a, metric)) - Number(averageValue(b, metric))).slice(0, limit);
       /** @param {string} category @param {string} metric @returns {[DestinationRow,DestinationRow][]} */
@@ -990,7 +990,7 @@
         const common = averagePairs.filter(([row]) => row[3] === category);
         if (category !== 'Kultura') return common;
         const pairs = common.filter(([row]) => cultureKind(row) === 'other');
-        for (const kind of ['theatre', 'beach']) {
+        for (const kind of ['cinema', 'theatre', 'beach']) {
           const limit = kind === 'theatre' ? averageTheatreCount : 1;
           const marzen = nearestCulture(marzenRows, kind, metric, limit);
           const ocean = nearestCulture(oceanicznaRows, kind, metric, limit);
@@ -1001,12 +1001,12 @@
       /** @param {DestinationRow[]} rows @param {string} category @param {string} metric */
       const rowsForAverage = (rows, category, metric) => {
         const eligible = rows.filter((row) => row[3] === category && !['10a','10b'].includes(row[0]) && !row[1].startsWith('Hula Pilates'));
-        return category === 'Kultura' ? [...eligible.filter((row) => cultureKind(row) === 'other'), ...nearestCulture(eligible, 'theatre', metric, averageTheatreCount), ...nearestCulture(eligible, 'beach', metric, 1)] : eligible;
+        return category === 'Kultura' ? [...eligible.filter((row) => cultureKind(row) === 'other'), ...nearestCulture(eligible, 'cinema', metric, 1), ...nearestCulture(eligible, 'theatre', metric, averageTheatreCount), ...nearestCulture(eligible, 'beach', metric, 1)] : eligible;
       };
       const renderAverages = () => {
         const paired = averageScope.value === 'paired';
         const metric = averageMetric.value;
-        averageExplanation.textContent = paired ? 'Edukacja: lokalna szkoła obwodowa i najbliższe zbadane przedszkole publiczne dla każdego adresu, po jednej placówce każdego typu. Porównujemy ich funkcję, więc adresy placówek mogą się różnić. Kultura: dwa najbliższe czasowo teatry i jedna najbliższa plaża dla każdego adresu (spośród plaż i Rewy); wybór zmienia się z transportem i godziną. Pozostałe cele: te same adresy. Mandu i Tłusta Kaczka nie są liczone. Średnia obejmuje tylko pary z pomiarem dla obu punktów startowych.' : 'Każdy adres ma własny zestaw dostępnych celów. Mandu i Tłusta Kaczka są wyłączone; w kulturze liczymy dwa najbliższe czasowo teatry oraz jedną plażę (także Rewa jest kandydatem), według wybranego transportu i godziny. Średnie opisują różne zbiory: ich różnica nie jest rankingiem lokalizacji. Sprawdź liczbę pomiarów i listę miejsc — brakujące trasy mogą istotnie zmienić wynik.';
+        averageExplanation.textContent = paired ? 'Edukacja: lokalna szkoła obwodowa i najbliższe zbadane przedszkole publiczne dla każdego adresu, po jednej placówce każdego typu. Porównujemy ich funkcję, więc adresy placówek mogą się różnić. Kultura: jedno najbliższe czasowo kino, dwa teatry i jedna najbliższa plaża dla każdego adresu (spośród plaż i Rewy); wybór zmienia się z transportem i godziną. Pozostałe cele: te same adresy. Mandu i Tłusta Kaczka nie są liczone. Średnia obejmuje tylko pary z pomiarem dla obu punktów startowych.' : 'Każdy adres ma własny zestaw dostępnych celów. Mandu i Tłusta Kaczka są wyłączone; w kulturze liczymy jedno najbliższe czasowo kino, dwa teatry oraz jedną plażę (także Rewa jest kandydatem), według wybranego transportu i godziny. Średnie opisują różne zbiory: ich różnica nie jest rankingiem lokalizacji. Sprawdź liczbę pomiarów i listę miejsc — brakujące trasy mogą istotnie zmienić wynik.';
         if (metric.startsWith('live:')) averageExplanation.textContent += ' Auto live: średnia z najkrótszych wskazań Google Maps podczas odczytów, nie ze zrealizowanych przejazdów. Godziny odczytów są podane w tabeli celów; nie są to równoczesne pomiary.';
         averageBody.innerHTML = ['Edukacja','Codzienność','Znajomi','Zdrowie i uroda','Jedzenie','Kultura','Ruch'].map((category) => {
           const pairs = pairsForAverage(category, metric);

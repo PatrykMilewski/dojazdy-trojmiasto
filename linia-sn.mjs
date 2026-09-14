@@ -1,4 +1,5 @@
 export const parcels = {
+  1: [[806.105,802.482],[813.650,795.299],[819.214,808.473],[812.879,808.593]],
   4: [[763.413,891.603],[779.294,876.045],[795.076,860.579],[811.430,844.565],[824.137,832.121],[824.796,827.854],[833.812,839.830],[829.596,839.270],[814.178,854.361],[799.342,868.894],[784.506,883.427],[769.651,897.981]],
   5: [[824.137,832.121],[811.430,844.565],[787.881,820.512],[806.105,802.482],[812.879,808.593],[824.796,827.854]],
   6: [[771.598,836.605],[787.881,820.512],[811.430,844.565],[795.076,860.579]],
@@ -16,6 +17,13 @@ export const axis = [[789.585,918.345],[799.342,868.894]];
 const delta = [axis[1][0]-axis[0][0],axis[1][1]-axis[0][1]];
 const length = Math.hypot(...delta);
 const normal = [-delta[1]/length,delta[0]/length];
+export const at = y => [axis[0][0]+(y-axis[0][1])*delta[0]/delta[1],y];
+export const section = [[814,803],at(808),at(923)];
+export const sectionLength = section.slice(1).reduce((sum,p,i)=>sum+Math.hypot(p[0]-section[i][0],p[1]-section[i][1]),0);
+export function budget(metres) {
+  if(!Number.isFinite(metres)||metres<0) throw new RangeError('Invalid route length');
+  return [metres*250+28000,metres*450+55000].map(net=>net*1.2*1.23);
+}
 export const distance = ([x,y]) => (x-axis[0][0])*normal[0]+(y-axis[0][1])*normal[1];
 export function area(poly) {
   return Math.abs(poly.reduce((sum,p,i) => {
@@ -66,10 +74,20 @@ if(typeof document!=='undefined') {
       const center=poly.reduce((a,p)=>[a[0]+p[0]/poly.length,a[1]+p[1]/poly.length],[0,0]);
       const [x,y]=project(center);
       const label=element('text',{x,y,class:id==='4'?'road-label':'parcel-label'},labels);
+      if(id==='1') {
+        label.setAttribute('x',x+40);
+        label.style.textAnchor='start';
+      }
       label.textContent=`761/${id}`;
     }
-    const at=y=>[axis[0][0]+(y-axis[0][1])*delta[0]/delta[1],y];
+    element('polyline',{points:points(section),class:'section-scope'},shapes);
     element('polyline',{points:points([at(959),at(795)]),class:'axis'},shapes);
+    section.filter((_,i)=>i!==1).forEach((point,i)=> {
+      const [x,y]=project(point);
+      element('circle',{cx:x,cy:y,r:9,class:'scope-end'},labels);
+      const label=element('text',{x:x-18,y:y+7,class:'scope-label','text-anchor':'end'},labels);
+      label.textContent=i===0?'A · stacja':'B · za 761/9';
+    });
     document.getElementById('width-value').textContent=`${width} m od osi · pas ${width*2} m`;
     document.getElementById('summary').textContent=`Wariant z 761/${alternative}: około ${Math.round(total/10)*10} m² pięciu wybranych działek w modelowym pasie. To nie powierzchnia prawnie wyłączona z zabudowy.`;
     document.querySelectorAll('[data-parcel]').forEach(row=> {
@@ -78,7 +96,7 @@ if(typeof document!=='undefined') {
       row.querySelector('.affected').textContent=affected<.01?'0 w modelu':affected<10?'< 10 m² (mały fragment)':`≈ ${Math.round(affected/10)*10} m²`;
       row.classList.toggle('selected-row',selected.includes(id));
     });
-    map.setAttribute('aria-label',`Mapa działek. Modelowy pas ${width} metrów po obu stronach orientacyjnej osi linii. Wybrany wariant z działką ${alternative}.`);
+    map.setAttribute('aria-label',`Mapa działek. Modelowy pas ${width} metrów po obu stronach orientacyjnej osi linii. Wybrany wariant z działką ${alternative}. A–B: około 120 m od stacji na 761/1 do punktu za 761/9, zakres do uzgodnienia.`);
   }
   document.getElementById('width').addEventListener('input',draw);
   document.getElementById('alternative').addEventListener('change',draw);

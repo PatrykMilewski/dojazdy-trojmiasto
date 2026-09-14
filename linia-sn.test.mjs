@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { area, axis, corridor, distance, parcels } from './linia-sn.mjs';
+import { area, axis, budget, corridor, distance, parcels, sectionLength } from './linia-sn.mjs';
 
 test('area handles empty, reversed and rectangular polygons',()=> {
   assert.equal(area([]),0);
@@ -44,4 +44,16 @@ test('parcel 19 is about 714 square metres and only its corner touches default s
   assert.ok(Math.abs(area(parcels[19])-714)<2);
   assert.ok(area(corridor(parcels[19],7))<10);
   assert.ok(area(corridor(parcels[19],7))<area(corridor(parcels[10],7)));
+});
+
+test('station parcel is valid and proposed section is approximately 120 metres',()=> {
+  assert.ok(area(parcels[1])>50);
+  assert.ok(sectionLength>115&&sectionLength<130);
+});
+
+test('budget scenarios include fixed costs, reserve and VAT only once',()=> {
+  assert.deepEqual(budget(120).map(Math.round),[85608,160884]);
+  assert.deepEqual(budget(150).map(Math.round),[96678,180810]);
+  assert.deepEqual(budget(0).map(Math.round),[41328,81180]);
+  for(const invalid of [-1,NaN,Infinity,'120']) assert.throws(()=>budget(invalid),RangeError);
 });

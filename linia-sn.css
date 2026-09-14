@@ -26,6 +26,9 @@ svg { display:block; width:100%; background:var(--paper); border:1px solid var(-
 .road { fill:var(--line); stroke:var(--muted); stroke-width:1; }
 .band { fill:url(#hatch); stroke:none; }
 .axis { stroke:var(--red); stroke-width:2.5; stroke-dasharray:8 5; fill:none; }
+.section-scope { stroke:var(--marine); stroke-width:10; stroke-opacity:.35; fill:none; }
+.scope-end { fill:var(--marine); stroke:var(--paper); stroke-width:3; }
+.scope-label { fill:var(--marine); font-size:21px; font-weight:bold; paint-order:stroke; stroke:var(--paper); stroke-width:4px; }
 .parcel-label { fill:var(--ink); text-anchor:middle; font-size:17px; font-weight:bold; paint-order:stroke; stroke:var(--paper); stroke-width:3px; }
 .road-label { fill:var(--ink); text-anchor:middle; font-size:12px; paint-order:stroke; stroke:var(--line); stroke-width:3px; }
 .scale { fill:var(--ink); font:13px Verdana,sans-serif; }

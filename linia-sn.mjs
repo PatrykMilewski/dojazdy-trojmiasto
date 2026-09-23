@@ -1,4 +1,12 @@
+// Additional boundaries: GUGiK ULDK, 2026-09-23, EPSG:2180.
 export const parcels = {
+  16: [[839.188,879.913],[853.472,865.937],[873.302,890.582],[873.062,894.814],[863.214,904.459]],
+  17: [[824.352,894.446],[839.188,879.913],[863.214,904.459],[848.379,918.992]],
+  18: [[809.516,908.979],[824.352,894.446],[848.379,918.992],[833.533,933.525]],
+  20: [[824.965,954.486],[838.864,940.876],[860.862,963.312],[846.79,976.765]],
+  21: [[838.864,940.876],[852.665,927.357],[874.825,949.95],[860.862,963.312]],
+  22: [[852.665,927.357],[866.377,913.929],[888.689,936.68],[874.825,949.95]],
+  23: [[866.377,913.929],[879.054,901.515],[883.286,901.755],[902.613,923.369],[888.689,936.68]],
   1: [[806.105,802.482],[813.650,795.299],[819.214,808.473],[812.879,808.593]],
   4: [[763.413,891.603],[779.294,876.045],[795.076,860.579],[811.430,844.565],[824.137,832.121],[824.796,827.854],[833.812,839.830],[829.596,839.270],[814.178,854.361],[799.342,868.894],[784.506,883.427],[769.651,897.981]],
   5: [[824.137,832.121],[811.430,844.565],[787.881,820.512],[806.105,802.482],[812.879,808.593],[824.796,827.854]],
@@ -51,7 +59,7 @@ if(typeof document!=='undefined') {
   const map=document.getElementById('parcel-map');
   const shapes=document.getElementById('shapes');
   const labels=document.getElementById('labels');
-  const project=([x,y]) => [(x-731)*5,(960-y)*5];
+  const project=([x,y]) => [(x-731)*5,(990-y)*5];
   const points=poly=>poly.map(p=>project(p).join(',')).join(' ');
   function element(tag,attrs,parent) {
     const node=document.createElementNS(ns,tag);
@@ -81,7 +89,7 @@ if(typeof document!=='undefined') {
       label.textContent=`761/${id}`;
     }
     element('polyline',{points:points(section),class:'section-scope'},shapes);
-    element('polyline',{points:points([at(959),at(795)]),class:'axis'},shapes);
+    element('polyline',{points:points([at(989),at(795)]),class:'axis'},shapes);
     section.filter((_,i)=>i!==1).forEach((point,i)=> {
       const [x,y]=project(point);
       element('circle',{cx:x,cy:y,r:9,class:'scope-end'},labels);

@@ -6,14 +6,15 @@
   <meta name="description" content="Działki 761/7, 8, 11, 12 oraz 10 lub 19: mapa ograniczeń linii SN, koszty przyłączenia prądu i procedura skablowania w Chwaszczynie.">
   <title>Linia SN — działki w Chwaszczynie</title>
   <link rel="stylesheet" href="linia-sn.css">
-  <script type="module" src="linia-sn.mjs"></script>
+  <script type="module" src="linia-sn.mjs?v=20260923"></script>
 </head>
 <body>
   <header><div class="wrap">
     <a href="./">← Dojazdy</a> · <a href="dzialka-761-19.html">Warunki budowy 761/19</a>
     <h1>Linia nad działkami.<br>Co ogranicza, co da się zmienić?</h1>
     <p>Chwaszczyno, obręb 0004 · zakup: <strong>761/7, 761/8, 761/11, 761/12 oraz 761/19 albo 761/10</strong>. Działka 761/9 nie jest już rozważana do zakupu; pozostaje na mapie wyłącznie jako sąsiedztwo.</p>
-    <p class="small" style="color:var(--light)">Stan opracowania: 14.09.2026. SN i napowietrzny charakter przyjęto z informacji kupującego; dokładne napięcie, właściciel i parametry linii wymagają potwierdzenia.</p>
+    <p>Mapa i tabela obejmują także działki <strong>761/16, 761/17, 761/18, 761/20, 761/21, 761/22 i 761/23</strong>. Dodane działki pokazujemy do porównania; suma wariantu zakupu nadal obejmuje pięć wcześniej wybranych działek.</p>
+    <p class="small" style="color:var(--light)">Analiza linii: 14.09.2026; mapa działek uzupełniona 23.09.2026. SN i napowietrzny charakter przyjęto z informacji kupującego; dokładne napięcie, właściciel i parametry linii wymagają potwierdzenia.</p>
   </div></header>
   <main class="wrap">
     <div class="notice"><p><strong>Aktualizacja 16.09.2026: otrzymano WZ dla części dawnej 761/13, powiązaną decyzją podziałową z 761/19.</strong> <a href="dzialka-761-19.html#wz-2016">Analiza dokumentu i lista braków →</a> Dla 761/7, 8, 10, 11 i 12 czekamy na osobny PDF. Nie przypisujemy im warunków tej decyzji.</p></div>
@@ -24,15 +25,15 @@
       <div class="notice"><p><strong>Nie można dziś rzetelnie wyznaczyć obszaru prawnie wykluczonego z budowy.</strong> Brakuje warunków operatora, geodezyjnego przebiegu skrajnych przewodów, ich wysokości i dokumentów planistycznych dla tych działek. Kreskowanie poniżej oznacza modelowy pas ograniczeń do uzgodnienia — nie stwierdzony zakaz. Teren poza nim także nie ma potwierdzonej możliwości zabudowy.</p></div>
       <div class="map-layout">
         <figure>
-          <svg id="parcel-map" viewBox="0 0 650 855" role="img" aria-labelledby="map-title map-desc">
+          <svg id="parcel-map" viewBox="0 0 900 1050" role="img" aria-labelledby="map-title map-desc">
             <title id="map-title">Działki i orientacyjny pas przy linii SN</title>
             <desc id="map-desc">Granice z ULDK. Przybliżona oś ze zdjęcia przecina 761/9, 761/10, drogę 761/4, 761/6 i 761/5. Pas może sięgać narożnika 761/11. A–B oznacza zakres około 120 m od stacji na 761/1 za działkę 761/9, nie uzgodnioną trasę kabla. To analiza orientacyjna, a nie mapa zakazu zabudowy.</desc>
             <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="var(--soft)" fill-opacity=".6"/><path d="M-2 2L2-2M0 8L8 0M6 10L10 6" stroke="var(--red)" stroke-width="1"/></pattern></defs>
             <g id="shapes"></g><g id="labels"></g>
-            <path d="M30 810h100m-100-5v10m100-10v10" stroke="var(--ink)" fill="none"/>
-            <text x="30" y="837" class="scale">20 m · skala granic</text><text x="570" y="35" class="scale">N ↑</text>
+            <path d="M30 1010h100m-100-5v10m100-10v10" stroke="var(--ink)" fill="none"/>
+            <text x="30" y="1037" class="scale">20 m · skala granic</text><text x="820" y="35" class="scale">N ↑</text>
           </svg>
-          <figcaption>Czerwona linia przerywana: przybliżona oś ze zrzutu, nie pomiar. Ciemne podświetlenie A–B: analizowany odcinek około 120 m, nie zatwierdzona trasa kabla. A — symboliczna lokalizacja stacji na 761/1; B — proponowany koniec za 761/9, w kierunku 761/27 (granicy 27 nie pokazano). Kreskowanie nadal pokazuje obecną linię, nie sytuację po przebudowie. Granice: GUGiK ULDK, 14.09.2026; nie zastępują wypisu EGiB.</figcaption>
+          <figcaption>Czerwona linia przerywana: przybliżona oś ze zrzutu, nie pomiar. Ciemne podświetlenie A–B: analizowany odcinek około 120 m, nie zatwierdzona trasa kabla. A — symboliczna lokalizacja stacji na 761/1; B — proponowany koniec za 761/9, w kierunku 761/27 (granicy 27 nie pokazano). Kreskowanie nadal pokazuje obecną linię, nie sytuację po przebudowie. Granice: GUGiK ULDK, 14.09.2026; dodane 761/16–18 i 761/20–23: 23.09.2026; nie zastępują wypisu EGiB.</figcaption>
         </figure>
         <div>
           <label for="alternative">Piąta działka do zakupu</label>
@@ -49,6 +50,13 @@
             <tr data-parcel="10"><th scope="row">761/10</th><td class="affected">—</td></tr>
             <tr data-parcel="11"><th scope="row">761/11</th><td class="affected">—</td></tr>
             <tr data-parcel="12"><th scope="row">761/12</th><td class="affected">—</td></tr>
+            <tr data-parcel="16"><th scope="row">761/16</th><td class="affected">—</td></tr>
+            <tr data-parcel="17"><th scope="row">761/17</th><td class="affected">—</td></tr>
+            <tr data-parcel="18"><th scope="row">761/18</th><td class="affected">—</td></tr>
+            <tr data-parcel="20"><th scope="row">761/20</th><td class="affected">—</td></tr>
+            <tr data-parcel="21"><th scope="row">761/21</th><td class="affected">—</td></tr>
+            <tr data-parcel="22"><th scope="row">761/22</th><td class="affected">—</td></tr>
+            <tr data-parcel="23"><th scope="row">761/23</th><td class="affected">—</td></tr>
           </tbody></table>
           <p class="small">Wyniki zaokrąglone do 10 m². Ich niepewność wynika przede wszystkim z odtworzenia osi ze zdjęcia, a nie dokładności obliczeń. Nie odejmujemy tego pasa od działki, by ogłaszać „powierzchnię budowlaną”.</p>
           <noscript><p>Do pokazania mapy i obliczeń potrzebny jest JavaScript. Opis ograniczeń i procedury poniżej pozostaje dostępny.</p></noscript>
@@ -170,12 +178,12 @@
     </section>
     <section id="metoda" class="reading">
       <p class="kicker">06 / Źródła i dokładność</p><h2>Jak powstała mapa?</h2>
-      <p>Granice 761/1, 761/4–12 oraz 761/19 pobrano 14.09.2026 z <a href="https://uldk.gugik.gov.pl/">ULDK GUGiK</a>, zapytaniem GetParcelById dla identyfikatorów 220508_5.0004.761/[numer]. Obliczenia są w metrach w EPSG:2180. <a href="linia-sn.mjs">Dane i jawny algorytm obliczeń</a> są dostępne do kontroli. Lokalizacja stacji wynika z mapy i zdjęcia przekazanych przez kupującego; znacznik A nie odtwarza obrysu budynku ani dokładnego punktu przyłączenia.</p>
+      <p>Granice 761/1, 761/4–12 oraz 761/19 pobrano 14.09.2026 z <a href="https://uldk.gugik.gov.pl/">ULDK GUGiK</a>, zapytaniem GetParcelById dla identyfikatorów 220508_5.0004.761/[numer]. Granice 761/16–18 i 761/20–23 pobrano z tego samego źródła 23.09.2026 (<a href="linia-sn-parcels-2026-09-23.json">zapis odpowiedzi ULDK</a>). Obliczenia są w metrach w EPSG:2180. <a href="linia-sn.mjs">Dane i jawny algorytm obliczeń</a> są dostępne do kontroli. Lokalizacja stacji wynika z mapy i zdjęcia przekazanych przez kupującego; znacznik A nie odtwarza obrysu budynku ani dokładnego punktu przyłączenia.</p>
       <p>Oś to prosta przybliżona na podstawie dwóch punktów odczytanych względem granic na zrzucie kupującego: około (463789,585; 728918,345) i (463799,342; 728868,894). Zapis współrzędnych nie oznacza centymetrowej dokładności. Nie znamy błędu odczytu ani przesunięcia kreski względem faktycznych przewodów. Model nie uwzględnia słupów, zwisu, wychyleń, rozgałęzień ani niepokazanych sieci.</p>
       <p>Powierzchnie to geometryczne przecięcie działek z pasem wokół przybliżonej osi. Pas nie uwzględnia odległości od granic działek, linii zabudowy, MPZP/WZ ani innych ograniczeń. <strong>Mapa służy do przygotowania pytań i porównania wariantów, nie do projektu budowlanego ani pracy przy czynnej sieci.</strong></p>
       <p class="small">Źródła prawne i proceduralne podano bezpośrednio przy odpowiednich twierdzeniach. Analiza nie zastępuje warunków operatora, opinii projektanta ani badania stanu prawnego nieruchomości.</p>
     </section>
   </main>
-  <footer class="wrap"><a href="./">← Dojazdy</a> · <a href="dzialka-761-19.html">Karta działki 761/19</a> · 14.09.2026</footer>
+  <footer class="wrap"><a href="./">← Dojazdy</a> · <a href="dzialka-761-19.html">Karta działki 761/19</a> · Mapa uzupełniona 23.09.2026</footer>
 </body>
 </html>
